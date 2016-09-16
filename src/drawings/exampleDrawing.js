@@ -13,7 +13,7 @@ const rendererSpec = {
   height: () => window.innerHeight,
   pixelRatio: window.devicePixelRatio,
   postprocessing: false,
-  useGSAP: true,
+  useGSAP: false,
   showStats: true,
 };
 
@@ -37,5 +37,7 @@ export class ExampleDrawing extends modularTHREE.Drawing {
   }
 
   init() {
+    this.cube = new Cube();
+    this.scene.add(this.cube);
   }
 }

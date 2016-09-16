@@ -39,7 +39,14 @@ var Cube = function (_modularTHREE$MeshObj) {
     return possibleConstructorReturn(this, _modularTHREE$MeshObj.call(this));
   }
 
-  Cube.prototype.init = function init() {};
+  Cube.prototype.init = function init() {
+    var texture = this.loadTexture('images/textures/crate.jpg');
+    var geometry = new THREE.BoxBufferGeometry(20, 20, 20);
+    var material = new THREE.MeshBasicMaterial({
+      map: texture
+    });
+    this.mesh = new THREE.Mesh(geometry, material);
+  };
 
   return Cube;
 }(modularTHREE.MeshObject);
@@ -61,7 +68,7 @@ var rendererSpec = {
   },
   pixelRatio: window.devicePixelRatio,
   postprocessing: false,
-  useGSAP: true,
+  useGSAP: false,
   showStats: true
 };
 
@@ -85,17 +92,20 @@ var cameraSpec = {
   }
 };
 
-var TestDrawing = function (_modularTHREE$Drawing) {
-  inherits(TestDrawing, _modularTHREE$Drawing);
+var ExampleDrawing = function (_modularTHREE$Drawing) {
+  inherits(ExampleDrawing, _modularTHREE$Drawing);
 
-  function TestDrawing() {
-    classCallCheck(this, TestDrawing);
+  function ExampleDrawing() {
+    classCallCheck(this, ExampleDrawing);
     return possibleConstructorReturn(this, _modularTHREE$Drawing.call(this, rendererSpec, cameraSpec));
   }
 
-  TestDrawing.prototype.init = function init() {};
+  ExampleDrawing.prototype.init = function init() {
+    this.cube = new Cube();
+    this.scene.add(this.cube);
+  };
 
-  return TestDrawing;
+  return ExampleDrawing;
 }(modularTHREE.Drawing);
 
 var fadeLoader = function () {
@@ -131,7 +141,7 @@ modularTHREE.init();
 initLoader();
 
 //Drawing set up and control goes next
-var testDrawing = new TestDrawing();
-testDrawing.render();
+var exampleDrawing = new ExampleDrawing();
+exampleDrawing.render();
 
 }());
