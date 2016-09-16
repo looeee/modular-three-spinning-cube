@@ -54,7 +54,7 @@ var Cube = function (_modularTHREE$MeshObj) {
 // The following spec objects are optional and can be omitted
 //for the defaults shown
 var rendererSpec = {
-  canvasID: 'testDrawing',
+  canvasID: 'exampleDrawing',
   antialias: true,
   alpha: true, //true required for multiple scenes
   autoClear: true, //false required for multiple scenes
@@ -101,8 +101,24 @@ var ExampleDrawing = function (_modularTHREE$Drawing) {
   }
 
   ExampleDrawing.prototype.init = function init() {
+    this.initObjects();
+    this.initCubeAnimation();
+  };
+
+  ExampleDrawing.prototype.initObjects = function initObjects() {
     this.cube = new Cube();
     this.scene.add(this.cube);
+  };
+
+  ExampleDrawing.prototype.initCubeAnimation = function initCubeAnimation() {
+    var _this2 = this;
+
+    var rotateCube = function () {
+      _this2.cube.rotation.x += 0.005;
+      _this2.cube.rotation.y += 0.01;
+    };
+
+    this.addPerFrameFunction(rotateCube);
   };
 
   return ExampleDrawing;
