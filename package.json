@@ -1,7 +1,7 @@
 {
-  "name": "modular-three_boilerpate",
+  "name": "modular-three-spinning-cube",
   "version": "0.1.0",
-  "description": "Boilerplate and Gulp build setup for ModularTHREE",
+  "description": "ModularTHREE Demo - Spinning Cube",
   "main": "Gulpfile.babel.js",
   "author": {
     "name": "Lewy Blue",
