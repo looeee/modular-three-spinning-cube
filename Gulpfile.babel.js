@@ -16,28 +16,28 @@ const cleanCSS = require('gulp-clean-css');
 
 // *****************************************************************************
 // // These are required if you are building THREE from source
-// const outro = `
-// Object.defineProperty( exports, 'AudioContext', {
-// 	get: function () {
-// 		return exports.getAudioContext();
-// 	}
-// });`;
-//
-// //Compile glsl shader code
-// const glsl = () => {
-//   return {
-//     transform(code, id) {
-//       if (!/\.glsl$/.test(id)) return;
-//
-//       return 'export default ' + JSON.stringify(
-//         code
-//         .replace(/[ \t]*\/\/.*\n/g, '')
-//         .replace(/[ \t]*\/\*[\s\S]*?\*\//g, '')
-//         .replace(/\n{2,}/g, '\n')
-//       ) + ';';
-//     },
-//   };
-// };
+const outro = `
+Object.defineProperty( exports, 'AudioContext', {
+	get: function () {
+		return exports.getAudioContext();
+	}
+});`;
+
+//Compile glsl shader code
+const glsl = () => {
+  return {
+    transform(code, id) {
+      if (!/\.glsl$/.test(id)) return;
+
+      return 'export default ' + JSON.stringify(
+        code
+        .replace(/[ \t]*\/\/.*\n/g, '')
+        .replace(/[ \t]*\/\*[\s\S]*?\*\//g, '')
+        .replace(/\n{2,}/g, '\n')
+      ) + ';';
+    },
+  };
+};
 // *****************************************************************************
 
 gulp.task('vendorBundle', () => {
@@ -52,7 +52,7 @@ gulp.task('vendorBundle', () => {
       commonjs(),
 
       //required if building THREE from source
-      // glsl(),
+      glsl(),
       babel({
         compact: false,
         exclude: 'node_modules/**',
@@ -61,13 +61,13 @@ gulp.task('vendorBundle', () => {
       }),
       gutil.log('Pre and post-uglify filesizes:'),
       filesize(),
-      //Disabled for development
-      // uglify(),
-      // filesize(),
+      //Disable for development
+      uglify(),
+      filesize(),
     ],
 
     //required if building THREE from source
-    // outro,
+    outro,
   })
     .then((bundle) => {
       return bundle.write({
@@ -96,9 +96,9 @@ gulp.task('bundle', () => {
       }),
       gutil.log('Pre and post-uglify filesizes:'),
       filesize(),
-      //Disabled for development
-      // uglify(),
-      // filesize(),
+      //Disable for development
+      uglify(),
+      filesize(),
     ],
   })
     .then((bundle) => {
@@ -118,7 +118,7 @@ gulp.task('css', () => {
       browsers: ['last 3 version', 'ie 9'],
       cascade: true,
     }))
-    .pipe(cleanCSS({debug: true}, (details) => {
+    .pipe(cleanCSS({ debug: true }, (details) => {
       gutil.log(gutil.colors.bgBlue(
         `\nCSS, preminified size: ${details.stats.originalSize}\n`
         + `Minified size: ${details.stats.minifiedSize}\n`
