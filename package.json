@@ -37,13 +37,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/looeee/modular-three-boilerplate.git"
+    "url": "git+https://github.com/looeee/modular-three-spinning-cube.git"
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/looeee/modular-three-boilerplate/issues"
+    "url": "https://github.com/looeee/modular-three-spinning-cube/issues"
   },
-  "homepage": "https://github.com/looeee/modular-three-boilerplate#readme",
+  "homepage": "https://github.com/looeee/modular-three-spinning-cube#readme",
   "keywords": [
     "three.js",
     "boilerplate",
